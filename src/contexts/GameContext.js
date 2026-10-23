@@ -8,6 +8,7 @@ export default function GameProvider({ children }) {
     const [paisActual, setPaisActual] = useState(null);
     const [puntaje, setPuntaje] = useState(0);
     const [jugadores, setJugadores] = useState([]);
+      const [NombreJugador, setNombreJugador] = useState('');
     const [jugadorActual, setJugadorActual] = useState(null);
     const [timer, setTimer] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -48,7 +49,7 @@ export default function GameProvider({ children }) {
     siguientePais();
   };
     return(
-        <GameContext.Provider value={{ paises, setPaises, paisActual, setPaisActual, puntaje, setPuntaje, jugadores, setJugadores, jugadorActual, setJugadorActual, timer, setTimer, loading, error, elegirPaisAleatorio, siguientePais, comprobarRespuesta }}>
+        <GameContext.Provider value={{ paises, setPaises, NombreJugador, setNombreJugador, paisActual, setPaisActual, puntaje, setPuntaje, jugadores, setJugadores, jugadorActual, setJugadorActual, timer, setTimer, loading, error, elegirPaisAleatorio, siguientePais, comprobarRespuesta }}>
             {children}
         </GameContext.Provider>
     )
