@@ -1,23 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import {api} from './src/services/API';
-import { useEffect } from 'react';
+import {GameProvider,useGameContext} from './src/contexts/GameContext';
 export default function App() {
-  const [paises, setPaises] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const cargarPaises = async () => {
-      const listaPaises = await api.obtenerPaises();
-      setPaises(listaPaises);
-    };
-    cargarPaises();
-  }, []);
-
+  const { paises, setPaises, paisActual, setPaisActual, puntaje, setPuntaje, jugadores, setJugadores, jugadorActual, setJugadorActual, timer, setTimer, loading, error, elegirPaisAleatorio, siguientePais, comprobarRespuesta } = useGameContext();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <GameProvider>
+      <View style={styles.container}>
+        <Text>Open up App.js to start working on your app!</Text>
+        <StatusBar style="auto" />
+      </View>
+    </GameProvider>
   );
 }
 
