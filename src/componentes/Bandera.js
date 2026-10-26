@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { Image } from 'expo-image';
 
 import { useGameContext } from '../contexts/GameContext';
 
@@ -7,22 +8,27 @@ export default function Bandera() {
   const { paisActual } = useGameContext();
   const [tieneError, setTieneError] = useState(false);
 
+  const flagUrl = paisActual?.flag || '';
+
   useEffect(() => {
     setTieneError(false);
-  }, [paisActual?.flag]);
+  }, [flagUrl]);
 
   return (
     <View style={styles.container}>
-      {tieneError || !paisActual?.flag ? (
+      {tieneError || !flagUrl ? (
         <View style={styles.placeholder}>
           <Text style={styles.placeholderText}>No se pudo cargar la bandera</Text>
         </View>
       ) : (
         <Image
-          source={{ uri: paisActual.flag }}
+          source={{ uri: flagUrl }}
           style={styles.flagImage}
-          resizeMode="contain"
+          contentFit="contain" 
           onError={() => setTieneError(true)}
+          headers={{
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36'
+          }}
         />
       )}
     </View>
@@ -35,8 +41,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   placeholder: {
-    width: 180,
-    height: 120,
+    width: 220,
+    height: 140,
     borderWidth: 1,
     borderColor: '#ddd',
     justifyContent: 'center',
@@ -51,5 +57,6 @@ const styles = StyleSheet.create({
     width: 220,
     height: 140,
     borderRadius: 10,
+    backgroundColor: '#f5f5f5', 
   },
 });

@@ -107,14 +107,17 @@ export function GameProvider({ children }) {
     setTimer(15);
   };
 
-  const comprobarRespuesta = (respuesta) => {
+  const comprobarRespuesta = (respuesta, tiempoRestante = 0) => {
     const texto = String(respuesta || "").trim().toLowerCase();
     const nombrePais = paisActual?.name?.trim().toLowerCase();
     const correcto = nombrePais === texto;
 
-    setPuntaje((prev) => prev + (correcto ? 10 : -1));
-    setPaisActual(elegirPaisAleatorio(paises));
-    setTimer(15);
+    if (correcto) {
+      setPuntaje((prev) => prev + 10 + Math.max(0, tiempoRestante));
+      return;
+    }
+
+    setPuntaje((prev) => prev - 1);
   };
 
   const empezarJuego = () => {

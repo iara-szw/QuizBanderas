@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { GameProvider, useGameContext } from './src/contexts/GameContext';
 import Inicio from './src/pages/Inicio';
 import Puntaje from './src/componentes/Puntaje';
@@ -7,9 +7,10 @@ import Timer from './src/componentes/Timer';
 import Bandera from './src/componentes/Bandera';
 import GuessForm from './src/componentes/GuessForm';
 import Leaderboard from './src/componentes/LeaderBoard';
+import BotonTerminado from './src/componentes/botonTerminado';
 
 function AppContent() {
-  const { partidaActiva, terminarPartida } = useGameContext();
+  const { partidaActiva } = useGameContext();
 
   if (!partidaActiva) {
     return (
@@ -29,7 +30,7 @@ function AppContent() {
       <Bandera />
       <GuessForm />
       <Leaderboard />
-      <Button title="Terminar partida" onPress={terminarPartida} />
+      <BotonTerminado />
       <StatusBar style="auto" />
     </View>
   );
@@ -46,7 +47,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
   },
